@@ -39,7 +39,7 @@ st.title('Helldivers 2 Player Count Analysis - {x} MST'.format(x = stamp))
 st.text_area("",
     "Note: the left graph uses minute by minute data, and the right uses every 5 minute data. This can lead to small differences"\
     " in player count.",
-             height = 68
+             height = 80
 )
 
 st.sidebar.image(r"https://image.api.playstation.com/vulcan/ap/rnd/202309/2115/249a75447b653d4118ee62f1a733ad8ee66beaa0e11ea60b.png")

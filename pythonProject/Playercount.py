@@ -1,3 +1,5 @@
+from datetime import tzinfo
+
 import streamlit as st
 #from seaborn.external.docscrape import header
 from st_aggrid import AgGrid
@@ -12,6 +14,7 @@ from streamlit_plotly_events import plotly_events
 import plotly.express as px
 import datetime as dt
 #from streamlit_dynamic_filters import DynamicFilters
+import pytz
 
 st.set_page_config(layout="wide")
 
@@ -34,8 +37,15 @@ map1 = df[['planetIndex', 'name', 'faction']]
 df3 = pd.merge(df3, map1, left_on='planet_index', right_on='planetIndex')
 df3['created_at'] = pd.to_datetime(df3['created_at'])
 df3['created_at'] = df3['created_at'].dt.tz_convert('MST')
-stamp = dt.datetime.now().strftime('%m/%d/%y - %H:%M')
-st.title('Helldivers 2 Player Count Analysis - {x} MST'.format(x = stamp))
+
+current_time = dt.datetime.now()
+timezone = pytz.timezone('America/Denver')
+localized_time = timezone.localize(current_time)
+localized_time = localized_time.strftime('%m/%d/%y - %H:%M')
+#stamp = dt.datetime.now().strftime('%m/%d/%y - %H:%M')
+#stamp = stamp.replace(tzinfo=dt.timezone.utc)
+
+st.title('Helldivers 2 Player Count Analysis - {x} MST'.format(x = localized_time))
 st.text_area("",
     "Note: the left graph uses minute by minute data, and the right uses every 5 minute data. This can lead to small differences"\
     " in player count.",

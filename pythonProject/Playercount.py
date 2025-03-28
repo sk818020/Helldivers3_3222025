@@ -87,7 +87,7 @@ csv = convert_df(df3)
 st.download_button(
     "Press to download data",
     csv,
-    "file.csv",
+    "player-data {x}.csv".format(x = localized_time),
     "text/csv",
     key="download-csv"
 )
